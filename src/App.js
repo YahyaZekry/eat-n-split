@@ -65,30 +65,30 @@ function FormAddFriend() {
 function FriendsList() {
   return (
     <ul>
-      {initialFriends.map((freind) => (
-        <Friend freind={freind} key={freind.id} />
+      {initialFriends.map((friend) => (
+        <Friend freind={friend} key={friend.id} />
       ))}
     </ul>
   );
 }
 
-function Friend({ freind }) {
+function Friend({ friend }) {
   return (
     <li>
-      <img src={freind.image} alt={freind.name} />
-      <h3>{freind.name}</h3>
-      {freind.balance < 0 && (
+      <img src={friend.image} alt={friend.name} />
+      <h3>{friend.name}</h3>
+      {friend.balance < 0 && (
         <p className="red">
-          You own {freind.name} {Math.abs(freind.balance)}$.
+          You own {friend.name} {Math.abs(friend.balance)}$.
         </p>
       )}
-      {freind.balance > 0 && (
+      {friend.balance > 0 && (
         <p className="green">
-          {freind.name} owns you {freind.balance}$.
+          {friend.name} owns you {friend.balance}$.
         </p>
       )}
 
-      {freind.balance === 0 && <p>You and {Friend.name} are even.</p>}
+      {friend.balance === 0 && <p>You and {Friend.name} are even.</p>}
       <Button>Select</Button>
     </li>
   );
