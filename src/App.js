@@ -66,7 +66,7 @@ function FriendsList() {
   return (
     <ul>
       {initialFriends.map((friend) => (
-        <Friend freind={friend} key={friend.id} />
+        <Friend friend={friend} key={friend.id} />
       ))}
     </ul>
   );
@@ -88,7 +88,7 @@ function Friend({ friend }) {
         </p>
       )}
 
-      {friend.balance === 0 && <p>You and {Friend.name} are even.</p>}
+      {friend.balance === 0 && <p>You and {friend.name} are even.</p>}
       <Button>Select</Button>
     </li>
   );
