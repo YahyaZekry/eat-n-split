@@ -22,14 +22,19 @@ const initialFriends = [
 ];
 
 export default function App() {
+  // State for friends data
   const [friends, setFriends] = useState(initialFriends);
+  // State for showing add friend form
   const [showAddFriend, setShowAddFriend] = useState(false);
+  // State for selected friend
   const [selectedFriend, setSelectedFriend] = useState(null);
 
+  // Function to toggle add friend form
   function handleShowAddFriend() {
     setShowAddFriend((show) => !show);
   }
 
+  // Function to handle friend selection
   function handleSelectedFriend(friend) {
     // setSelectedFriend(friend);
     setSelectedFriend((cur) => (cur?.id === friend.id ? null : friend));
@@ -61,6 +66,7 @@ export default function App() {
 }
 
 function Button({ children, onClick }) {
+  // Return a button with onClick handler and children as its content
   return (
     <button className="button" onClick={onClick}>
       {children}
@@ -69,6 +75,7 @@ function Button({ children, onClick }) {
 }
 
 function FriendsList({ friends, onSelection, selectedFriend }) {
+  // Return a list of Friend components
   return (
     <ul>
       {friends.map((friend) => (
@@ -84,7 +91,9 @@ function FriendsList({ friends, onSelection, selectedFriend }) {
 }
 
 function Friend({ friend, onSelection, selectedFriend }) {
+  // Check if the current friend is selected
   const isSelected = selectedFriend?.id === friend.id;
+  // Return a list item with friend details and a select/close button
   return (
     <li className={isSelected ? "selected" : ""}>
       <img src={friend.image} alt={friend.name} />
@@ -109,9 +118,10 @@ function Friend({ friend, onSelection, selectedFriend }) {
 }
 
 function FormAddFriend({ setFriends }) {
+  // State for the new friend's name and image
   const [name, setName] = useState("");
   const [image, setImage] = useState("https://i.pravatar.cc/48?u=");
-
+  // Function to handle form submission
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -130,6 +140,7 @@ function FormAddFriend({ setFriends }) {
     setImage("https://i.pravatar.cc/48?u=");
     console.log(newFriend);
   }
+  // Return the form for adding a new friend
   return (
     <form className="form-add-friend" onSubmit={handleSubmit}>
       <label>🤼Friend's name</label>
@@ -152,10 +163,12 @@ function FormAddFriend({ setFriends }) {
 }
 
 function FormSplitBill({ selectedFriend, setFriends }) {
+  // State for the total bill, user's expense, friend's expense, and who is paying
   const [bill, setBill] = useState("");
   const [userExpense, setUserExpense] = useState("");
   const friendExpense = bill ? bill - userExpense : "";
   const [whoIsPaying, SetWhoIsPaying] = useState("User");
+  // Function to handle form submission
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -183,6 +196,7 @@ function FormSplitBill({ selectedFriend, setFriends }) {
     setUserExpense("");
     SetWhoIsPaying("User");
   }
+  // Return the form for splitting the bill
   return (
     <form className="form-split-bill" onSubmit={handleSubmit}>
       <h2>Split the bill with {selectedFriend.name}</h2>
