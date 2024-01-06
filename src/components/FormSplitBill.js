@@ -5,7 +5,7 @@ export default function FormSplitBill({ selectedFriend, setFriends }) {
   // State for the total bill, user's expense, friend's expense, and who is paying
   const [bill, setBill] = useState("");
   const [userExpense, setUserExpense] = useState("");
-  const friendExpense = bill ? bill - userExpense : "";
+  const friendExpense = bill && userExpense <= bill ? bill - userExpense : 0;
   const [whoIsPaying, SetWhoIsPaying] = useState("User");
   // Function to handle form submission
   function handleSubmit(e) {
@@ -44,18 +44,26 @@ export default function FormSplitBill({ selectedFriend, setFriends }) {
       <input
         type="text"
         value={bill}
-        onChange={(e) => setBill(Number(e.target.value))}
+        onChange={(e) => {
+          if (!isNaN(e.target.value)) {
+            setBill(Number(e.target.value));
+          }
+        }}
       />
 
       <label>🧘‍♀️Your Expense</label>
       <input
         type="text"
         value={userExpense}
-        onChange={(e) =>
-          setUserExpense(
-            Number(e.target.value) > bill ? userExpense : Number(e.target.value)
-          )
-        }
+        onChange={(e) => {
+          if (!isNaN(e.target.value)) {
+            setUserExpense(
+              Number(e.target.value) > bill
+                ? userExpense
+                : Number(e.target.value)
+            );
+          }
+        }}
       />
 
       <label>🤼{selectedFriend.name}'s Expense</label>
