@@ -5,6 +5,7 @@ export default function FriendsList({ friends, onSelection, selectedFriend }) {
   return (
     <ul>
       {friends.map((friend) => (
+          friend.name === "Me" ? null:
         <Friend
           friend={friend}
           key={friend.id}

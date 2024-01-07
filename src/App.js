@@ -7,6 +7,12 @@ import FormSplitBill from "./components/FormSplitBill";
 const initialFriends = [
   {
     id: 118836,
+    name: "Me",
+    image: "https://i.pravatar.cc/48?u=118835",
+    balance: 50,
+  },
+  {
+    id: 118836,
     name: "Clark",
     image: "https://i.pravatar.cc/48?u=118836",
     balance: -7,
