@@ -5,7 +5,7 @@ export default function FormSplitBill({ selectedFriend, setFriends }) {
   // State for the total bill, user's expense, friend's expense, and who is paying
   const [bill, setBill] = useState("");
   const [userExpense, setUserExpense] = useState("");
-  const friendExpense = bill && userExpense <= bill ? bill - userExpense : 0;
+  const friendExpense = bill ? bill - userExpense : "";
   const [whoIsPaying, SetWhoIsPaying] = useState("User");
   // Function to handle form submission
   function handleSubmit(e) {
@@ -14,26 +14,21 @@ export default function FormSplitBill({ selectedFriend, setFriends }) {
     if (!bill || !userExpense) return;
 
     // Calculate the new balance for the friend
-    let newBalance;
-    if (whoIsPaying === "user") {
-      newBalance = selectedFriend.balance + bill;
-    } else {
-      newBalance = selectedFriend.balance - bill;
-    }
+    let value = whoIsPaying === "user" ? friendExpense : -userExpense;
 
     // Update the friends state
     setFriends((prevFriends) =>
       prevFriends.map((friend) =>
         friend.id === selectedFriend.id
-          ? { ...friend, balance: newBalance }
+          ? { ...friend, balance: friend.balance + value }
           : friend
       )
     );
 
-    // Reset the form
-    setBill("");
-    setUserExpense("");
-    SetWhoIsPaying("User");
+    //BUGGY
+    // setBill("");
+    // setUserExpense("");
+    // SetWhoIsPaying("User");
   }
   // Return the form for splitting the bill
   return (
