@@ -125,6 +125,10 @@ form {
 .form-split-bill {
   grid-template-columns: 1fr 12rem;
   padding: 3.2rem 4rem;
+  background-image: url("https://cdn4.iconfinder.com/data/icons/payment-and-top-up/64/split_bill-512.png");
+  background-position: center;
+  background-size: contain;
+  background-blend-mode: overlay;
 }
 
 label {

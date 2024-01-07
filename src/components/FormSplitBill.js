@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import {Slider} from "@mui/material";
 
 export default function FormSplitBill({ selectedFriend, setFriends }) {
   // State for the total bill, user's expense, friend's expense, and who is paying
@@ -42,6 +43,10 @@ export default function FormSplitBill({ selectedFriend, setFriends }) {
         );
     }
 
+    function valuetext(value: number) {
+        return `${value}°C`;
+    }
+
   // Return the form for splitting the bill
   return (
     <form className="form-split-bill" onSubmit={handleSubmit}>
@@ -75,16 +80,22 @@ export default function FormSplitBill({ selectedFriend, setFriends }) {
 
       <label>🤼{selectedFriend.name}'s Expense</label>
       <input type="text" disabled value={friendExpense} />
-        {/*It doesn't matter who's paying, we are splitting and calculating*/}
-      {/*<label>🤑Who is paying the bill?</label>*/}
-        {/*<select*/}
-        {/*  value={whoIsPaying}*/}
-        {/*  onChange={(e) => SetWhoIsPaying(e.target.value)}*/}
-        {/*>*/}
-        {/*  <option value="user">You</option>*/}
-        {/*  <option value="friend">{selectedFriend.name}</option>*/}
-        {/*</select>*/}
-      <Button onClick={handleSubmit}>Split Bill </Button>
+
+        <Slider aria-label="user expense"
+                value={userExpense}
+                max={bill}
+                valueLabelDisplay="on"
+                getAriaValueText={valuetext}
+                onChange={(e) => {
+                    if (!isNaN(e.target.value)) {
+                        setUserExpense(
+                            Number(e.target.value) > bill
+                                ? userExpense
+                                : Number(e.target.value)
+                        );
+                    }
+                }}/>
+        <Button onClick={handleSubmit}>Split Bill </Button>
     </form>
   );
 }
